@@ -26,14 +26,14 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         this.listener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)
-        return SimpleListViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.album_item, parent, false)
+        return AlbumViewHolder(view)
     }
 
     override fun getItemCount() = data?.size ?: 0
 
-    override fun onBindViewHolder(holder: SimpleListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val deezerAlbum = data!![position]
         holder.albumTitle.text = deezerAlbum.title
 
@@ -46,7 +46,7 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     }
 
 
-    class SimpleListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val artistAlbum: TextView = itemView.findViewById(R.id.item_album_artist)
         val albumCover: ImageView = itemView.findViewById(R.id.item_album_cover)
         val albumTitle: TextView = itemView.findViewById(R.id.item_album_title)
