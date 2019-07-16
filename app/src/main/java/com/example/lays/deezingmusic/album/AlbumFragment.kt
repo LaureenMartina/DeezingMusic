@@ -1,12 +1,12 @@
 package com.example.lays.deezingmusic.album
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
+import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +35,11 @@ class AlbumFragment : Fragment() {
 
         albumViewModel = ViewModelProviders.of(this).get(AlbumViewModel::class.java)
 
-        albumViewModel.albumLiveData.observe(viewLifecycleOwner, observerAlbum)
+        albumViewModel.albumLiveData.observe(viewLifecycleOwner, Observer {
+            updateData(it)
+        })
 
-        albumViewModel.getDeezerAlbums(nameArtist)
+        albumViewModel.getDeezerAlbums("eminem")
     }
 
     private fun initRecyclerView() {
