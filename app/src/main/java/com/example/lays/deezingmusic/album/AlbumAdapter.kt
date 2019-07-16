@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerAlbum
 
@@ -37,10 +35,10 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         val deezerAlbum = data!![position]
         holder.albumTitle.text = deezerAlbum.title
 
-        Glide.with(holder.itemView)
+        /*Glide.with(holder.itemView)
                 .load(deezerAlbum.tracklist)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.albumCover)
+                .into(holder.albumCover)*/
 
         holder.itemView.setOnClickListener { listener?.onClick(deezerAlbum) }
     }
