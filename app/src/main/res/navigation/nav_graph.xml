@@ -11,20 +11,20 @@
         android:label="AlbumFragment"
         tools:layout="@layout/album_fragment">
         <action
-            android:id="@+id/action_photoListFragment_to_photoDetailFragment"
-            app:destination="@id/photoDetailFragment"
+            android:id="@+id/action_albumFragment_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
-    <fragment android:id="@+id/albumDetailFragment"
-        android:name="com.example.lays.deezingmusic.XXXX.AlbumDetailFragment"
-        android:label="AlbumDetailFragment"
+    <fragment android:id="@+id/albumDetailsFragment"
+        android:name="com.example.lays.deezingmusic.album.AlbumDetailsFragment"
+        android:label="AlbumDetailsFragment"
         tools:layout="@layout/activity_album_detail">
         <argument
-            android:name="photoId"
+            android:name="albumId"
             app:argType="string"/>
     </fragment>
 

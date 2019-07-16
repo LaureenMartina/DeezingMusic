@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerAlbum
 
@@ -22,7 +25,7 @@ class AlbumFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        albumRecyclerView = view.findViewById(R.id.recyclerAlbums)
+        albumRecyclerView = view.findViewById(R.id.album_recyclerview)
 
         initRecyclerView()
     }
