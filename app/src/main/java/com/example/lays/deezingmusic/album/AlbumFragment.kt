@@ -39,7 +39,7 @@ class AlbumFragment : Fragment() {
             updateData(it)
         })
 
-        albumViewModel.getDeezerAlbums("eminem")
+        albumViewModel.getDeezerAlbums()
     }
 
     private fun initRecyclerView() {

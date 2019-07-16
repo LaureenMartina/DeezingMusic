@@ -9,9 +9,9 @@ interface DeezerService {
     //@GET("/album?q=eminem")
     //fun getAlbumsFromArtist(/*@Query("name_artist") userId: String*/): Call<EAlbumResponseMapper>
 
-    @GET("/album?q=")
+    @GET("/")
     fun getAlbumsArtist(
-            @Query("nameArtist")
-            nameArtist: String
+            //@Query("nameArtist")
+            //nameArtist: String
     ): Call<EAlbumResponse>
 }

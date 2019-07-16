@@ -16,7 +16,7 @@ object DeezerProvider {
     private var service: DeezerService
 
     init {
-        service = Retrofit.Builder().baseUrl("https://api.deezer.com/album/302127")
+        service = Retrofit.Builder().baseUrl("https://api.deezer.com/album/302127/")
                 .client(createOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -41,8 +41,8 @@ object DeezerProvider {
                 .build()
     }
 
-    fun getAlbums(nameArtist: String, listener: Listener<List<DeezerAlbum>>) {
-        service.getAlbumsArtist(nameArtist).enqueue(object : Callback<EAlbumResponse> {
+    fun getAlbums(listener: Listener<List<DeezerAlbum>>) {
+        service.getAlbumsArtist().enqueue(object : Callback<EAlbumResponse> {
 
             override fun onFailure(call: Call<EAlbumResponse>, t: Throwable) {
                 listener.onError(t)

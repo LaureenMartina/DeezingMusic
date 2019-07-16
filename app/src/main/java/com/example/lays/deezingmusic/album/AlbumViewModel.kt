@@ -10,9 +10,9 @@ class AlbumViewModel : ViewModel() {
     private val albumMutableLiveData = MutableLiveData<List<DeezerAlbum>>()
     val albumLiveData: LiveData<List<DeezerAlbum>> = albumMutableLiveData
 
-    fun getDeezerAlbums(nameArtist: String) {
+    fun getDeezerAlbums() {
         //albumMutableLiveData.setLoadingState(true)
-        DeezerProvider.getAlbums(nameArtist, object : DeezerProvider.Listener<List<DeezerAlbum>> {
+        DeezerProvider.getAlbums(object : DeezerProvider.Listener<List<DeezerAlbum>> {
             override fun onSuccess(data: List<DeezerAlbum>) {
                 //albumMutableLiveData.setLoadingState(false)
                 //albumMutableLiveData.value = Success(data)
