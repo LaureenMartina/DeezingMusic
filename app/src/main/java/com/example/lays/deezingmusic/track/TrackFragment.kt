@@ -50,6 +50,8 @@ class TrackFragment: Fragment() {
         trackAdapter = TrackAdapter()
         trackAdapter?.setListener(object : TrackAdapter.ClickListener {
             override fun onClick(music: DeezerTrack) {
+
+
             }
 
         })
