@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.R
@@ -57,7 +58,7 @@ class AlbumFragment : Fragment() {
         })
 
         albumRecyclerView.adapter = albumAdapter
-        albumRecyclerView.layoutManager = LinearLayoutManager(context)
+        albumRecyclerView.layoutManager = GridLayoutManager(context,2)
     }
 
     fun updateData(data: List<DeezerAlbum>) {
