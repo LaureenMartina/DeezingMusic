@@ -29,22 +29,10 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                      <entry key="image">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="color" value="000000" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_play" />
                                       <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
@@ -96,8 +84,12 @@
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
+<<<<<<< HEAD
                                       <entry key="foregroundLayerName" value="ic_rewind_foreground" />
                                       <entry key="outputName" value="ic_rewind_album" />
+=======
+                                      <entry key="outputName" value="ic_rewind" />
+>>>>>>> develop
                                     </map>
                                   </option>
                                 </PersistentState>

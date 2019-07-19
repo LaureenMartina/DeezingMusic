@@ -34,9 +34,7 @@ class AlbumFragment : Fragment() {
     private lateinit var albumRecyclerView: RecyclerView
     private var albumAdapter: AlbumAdapter? = null
     private lateinit var albumViewModel: AlbumViewModel
-
     private lateinit var cardImgAlbum: ImageView
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.album_fragment, null)
