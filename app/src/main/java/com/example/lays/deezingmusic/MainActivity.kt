@@ -5,20 +5,29 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import com.example.lays.deezingmusic.model.DeezerTrack
 lateinit var dataTrack: List<DeezerTrack>
 var positionTrack: Int? = null
 
 class MainActivity : AppCompatActivity(), IMain {
     var isPlay: Boolean = false
+    var isAlreadyPlayedOneTimes: Boolean = false
     override fun startPlayer(data: List<DeezerTrack>, position: Int) {
         dataTrack = data
         positionTrack = position
+        if(!isAlreadyPlayedOneTimes) {
+
+            isAlreadyPlayedOneTimes = true
+            playerBarGroup.visibility = View.VISIBLE
+
+        }
         Log.d("TAG : Liste tracks", data.toString())
         Log.d("TAG : position tracks", position.toString())
         Log.d("TAG : track at pos : ", position.toString())
@@ -40,6 +49,7 @@ class MainActivity : AppCompatActivity(), IMain {
     lateinit var playPauseBtn: ImageView
     lateinit var forwardBtn: ImageView
     lateinit var rewindBtn: ImageView
+    lateinit var playerBarGroup: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +58,8 @@ class MainActivity : AppCompatActivity(), IMain {
         playPauseBtn = findViewById(R.id.play_imv)
         forwardBtn = findViewById(R.id.forward_imv)
         rewindBtn = findViewById(R.id.rewind_imv)
+        playerBarGroup = findViewById(R.id.player_bar_group)
+        playerBarGroup.visibility = View.GONE
         // Start the media player
         playPauseBtn.setOnClickListener {
             if (isPlay) { // son en cours
