@@ -1,25 +1,42 @@
 package com.example.lays.deezingmusic.album
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 
 import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerAlbum
+import com.example.lays.deezingmusic.track.TrackFragmentArgs
+import com.squareup.picasso.Picasso
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.LinearLayout
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+
 
 class AlbumFragment : Fragment() {
 
     private lateinit var albumRecyclerView: RecyclerView
     private var albumAdapter: AlbumAdapter? = null
     private lateinit var albumViewModel: AlbumViewModel
+
+    private lateinit var cardImgAlbum: ImageView
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.album_fragment, null)
@@ -46,8 +63,11 @@ class AlbumFragment : Fragment() {
 
     private fun initRecyclerView() {
         albumAdapter = AlbumAdapter()
+
         albumAdapter?.setListener(object : AlbumAdapter.ClickListener {
+
             override fun onClick(album: DeezerAlbum) {
+
                 val navAction = AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(album.id)
 
                 view?.also {
