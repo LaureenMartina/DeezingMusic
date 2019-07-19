@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerAlbum
+import com.squareup.picasso.Picasso
 
 
 class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
@@ -35,17 +36,19 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         val deezerAlbum = data!![position]
         holder.albumTitle.text = deezerAlbum.title
 
-        /*Glide.with(holder.itemView)
-                .load(deezerAlbum.tracklist)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.albumCover)*/
+
+        Picasso.get()
+            .load(deezerAlbum.coverMedium)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .fit()
+            .into(holder.albumCover)
 
         holder.itemView.setOnClickListener { listener?.onClick(deezerAlbum) }
     }
 
 
     class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val artistAlbum: TextView = itemView.findViewById(R.id.item_album_artist)
         val albumCover: ImageView = itemView.findViewById(R.id.item_album_cover)
         val albumTitle: TextView = itemView.findViewById(R.id.item_album_title)
     }

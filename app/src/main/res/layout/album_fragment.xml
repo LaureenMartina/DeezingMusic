@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="MainActivity"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/album_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/album_item"
-        tools:spanCount="3"
+        tools:spanCount="2"
         />
 
 </LinearLayout>

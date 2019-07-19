@@ -15,6 +15,11 @@
                     app:exitAnim="@anim/nav_default_exit_anim"
                     app:popEnterAnim="@anim/nav_default_pop_enter_anim"
                     app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            <action android:id="@+id/action_albumFragment_to_trackFragment" app:destination="@id/trackFragment"/>
         </fragment>
+    <fragment android:id="@+id/trackFragment" android:name="com.example.lays.deezingmusic.track.TrackFragment"
+              android:label="TrackFragment">
+        <argument android:name="trackId" app:argType="integer"/>
+    </fragment>
 
 </navigation>

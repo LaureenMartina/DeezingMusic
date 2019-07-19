@@ -24,7 +24,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_albumFragment_to_trackFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="trackFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="270" />
+                            <option name="y" value="3" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

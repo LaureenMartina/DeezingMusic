@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.R
@@ -45,8 +46,12 @@ class AlbumFragment : Fragment() {
     private fun initRecyclerView() {
         albumAdapter = AlbumAdapter()
         albumAdapter?.setListener(object : AlbumAdapter.ClickListener {
-            override fun onClick(photo: DeezerAlbum) {
+            override fun onClick(album: DeezerAlbum) {
+                val navAction = AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(album.id)
 
+                view?.also {
+                    Navigation.findNavController(it).navigate(navAction)
+                }
             }
 
         })

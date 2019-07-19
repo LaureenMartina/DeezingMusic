@@ -1,8 +1,11 @@
 package com.example.lays.deezingmusic.api
 
 import com.example.lays.deezingmusic.dto.EAlbumResponse
+import com.example.lays.deezingmusic.dto.ETrackResponse
 import com.example.lays.deezingmusic.dto.mapper.EAlbumResponseMapper
+import com.example.lays.deezingmusic.dto.mapper.ETrackResponseMapper
 import com.example.lays.deezingmusic.model.DeezerAlbum
+import com.example.lays.deezingmusic.model.DeezerTrack
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +19,7 @@ object DeezerProvider {
     private var service: DeezerService
 
     init {
-        service = Retrofit.Builder().baseUrl("https://api.deezer.com/album/302127/")
+        service = Retrofit.Builder().baseUrl("https://api.deezer.com/")
                 .client(createOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -50,7 +53,23 @@ object DeezerProvider {
 
             override fun onResponse(call: Call<EAlbumResponse>, response: Response<EAlbumResponse>) {
                 response.body()?.also {
-                    val infoAlbum = listener.onSuccess(EAlbumResponseMapper().map(it))
+                    listener.onSuccess(EAlbumResponseMapper().map(it))
+                }
+            }
+
+        })
+    }
+
+    fun getTracks(idAlbum: Int, listener: Listener<List<DeezerTrack>>) {
+        service.getTracksAlbum(idAlbum).enqueue(object : Callback<ETrackResponse> {
+
+            override fun onFailure(call: Call<ETrackResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+
+            override fun onResponse(call: Call<ETrackResponse>, response: Response<ETrackResponse>) {
+                response.body()?.also {
+                    listener.onSuccess(ETrackResponseMapper().map(it))
                 }
             }
 
