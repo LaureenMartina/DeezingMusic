@@ -37,6 +37,7 @@
         app:layout_constraintTop_toTopOf="@id/player_background_view"
         app:layout_constraintBottom_toBottomOf="@id/player_background_view"
         app:layout_constraintEnd_toStartOf="@id/play_imv"
+
     />
     <ImageView
             android:id="@+id/play_imv"
