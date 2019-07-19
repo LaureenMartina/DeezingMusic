@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/album_item"
         tools:spanCount="2"
+
         />
 
 </RelativeLayout>

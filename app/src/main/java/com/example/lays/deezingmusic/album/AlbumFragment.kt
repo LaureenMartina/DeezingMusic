@@ -21,6 +21,7 @@ class AlbumFragment : Fragment() {
     private var albumAdapter: AlbumAdapter? = null
     private lateinit var albumViewModel: AlbumViewModel
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.album_fragment, null)
     }

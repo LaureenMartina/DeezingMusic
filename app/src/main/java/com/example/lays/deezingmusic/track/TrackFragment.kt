@@ -1,6 +1,8 @@
 package com.example.lays.deezingmusic.track
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +12,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lays.deezingmusic.MainActivity
 import com.example.lays.deezingmusic.R
-import com.example.lays.deezingmusic.album.AlbumAdapter
-import com.example.lays.deezingmusic.album.AlbumViewModel
-import com.example.lays.deezingmusic.model.DeezerAlbum
 import com.example.lays.deezingmusic.model.DeezerTrack
+import com.example.lays.deezingmusic.IMain
+
+
 
 class TrackFragment: Fragment() {
 
@@ -22,7 +25,19 @@ class TrackFragment: Fragment() {
     private var trackAdapter: TrackAdapter? = null
     private lateinit var trackViewModel: TrackViewModel
     private val args by navArgs<TrackFragmentArgs>()
+    private lateinit var iMain: IMain
 
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        try {
+            iMain = activity as IMain
+            // listener.showFormula(show?);
+        } catch (castException: ClassCastException) {
+            /** The activity does not implement the listener.  */
+        }
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.track_fragment, null)
     }
@@ -50,7 +65,11 @@ class TrackFragment: Fragment() {
         trackAdapter = TrackAdapter()
         trackAdapter?.setListener(object : TrackAdapter.ClickListener {
             override fun onClick(music: DeezerTrack) {
+                Log.d("initRecyclerView", music.toString())
 
+                trackViewModel.trackLiveData.observe(viewLifecycleOwner, Observer {
+                    iMain.startPlayer(it, it.indexOf(music))
+                })
 
             }
 
