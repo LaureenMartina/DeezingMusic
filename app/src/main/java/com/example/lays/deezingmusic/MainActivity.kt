@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), IMain {
     lateinit var rewindBtn: ImageView
     lateinit var playerBarGroup: Group
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity(), IMain {
         }
         forwardBtn.setOnClickListener {
             positionTrack?.let {
-                if(it > dataTrack.size) {
+                if(it >= dataTrack.size) {
                     positionTrack = 0
                 } else {
                     positionTrack = it+1
