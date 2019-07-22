@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +27,7 @@ class TrackFragment: Fragment() {
     private lateinit var trackViewModel: TrackViewModel
     private val args by navArgs<TrackFragmentArgs>()
     private lateinit var iMain: IMain
+    private lateinit var motionLayout: MotionLayout
 
 
     override fun onAttach(context: Context?) {
