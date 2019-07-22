@@ -1,7 +1,13 @@
 package com.example.lays.deezingmusic
 
+import android.app.NotificationManager
+import android.app.Service
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -13,37 +19,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
 import com.example.lays.deezingmusic.model.DeezerTrack
-lateinit var dataTrack: List<DeezerTrack>
-var positionTrack: Int? = null
+import com.example.lays.deezingmusic.services.PlayerService
 
-class MainActivity : AppCompatActivity(), IMain {
+class MainActivity : AppCompatActivity(), IMain{
     var isPlay: Boolean = false
     var isAlreadyPlayedOneTimes: Boolean = false
-    override fun startPlayer(data: List<DeezerTrack>, position: Int) {
-        dataTrack = data
-        positionTrack = position
-        if(!isAlreadyPlayedOneTimes) {
 
-            isAlreadyPlayedOneTimes = true
-            playerBarGroup.visibility = View.VISIBLE
+    private lateinit var playerService: PlayerService
 
-        }
-        Log.d("TAG : Liste tracks", data.toString())
-        Log.d("TAG : position tracks", position.toString())
-        Log.d("TAG : track at pos : ", position.toString())
-        Log.d("TAG : position tracks", dataTrack.get(positionTrack!!).preview)
-        Log.d("TAG : tracks lliste at ", dataTrack.get(0).toString())
-        //if(isPlay){
-            mediaPlayer.reset()
-        //}
-        mediaPlayer.setDataSource(this, Uri.parse(dataTrack.get(positionTrack!!).preview))
-        mediaPlayer.prepare()
-        mediaPlayer.start()
-        isPlay = true
-    }
-
-    private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var runnable:Runnable
     private var handler: Handler = Handler()
     private var pause:Boolean = false
     lateinit var playPauseBtn: ImageView
@@ -51,11 +34,56 @@ class MainActivity : AppCompatActivity(), IMain {
     lateinit var rewindBtn: ImageView
     lateinit var playerBarGroup: Group
 
+    private var dataTrack: List<DeezerTrack>? = null
+    private var positionTrack: Int? = null
+
+    private var notificationManager: NotificationManager? = null
+     lateinit var notificationBroadcast: NotificationBroadcast
+
+    override fun showPlayerBar() {
+        playerBarGroup.visibility = View.VISIBLE
+    }
+
+    override fun initPlayer(data: List<DeezerTrack>, position: Int) {
+        dataTrack = data
+        positionTrack = position
+
+        val intent = Intent(this@MainActivity, PlayerService::class.java)
+        //playerService.onCreate()
+        //playerService.onDestroy()
+
+        stopService(intent)
+        startService(intent)
+        isPlay = true
+
+        NotfificationDisplayer.launchNotif(applicationContext,
+            "test", "test2",  R.drawable.ic_album_foreground)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mediaPlayer = MediaPlayer()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notificationManager =
+                getSystemService(
+                    Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            NotfificationDisplayer.createNotificationChannel("com.example.androiddezer.player",
+                "Player",
+                "Player Android Deezer")
+
+            NotfificationDisplayer.launchNotifManager(applicationContext)
+
+            notificationBroadcast = NotificationBroadcast()
+
+            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.play"))
+            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.pause"))
+            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.next"))
+            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.previous"))
+        }
+
+        playerService = PlayerService()
         playPauseBtn = findViewById(R.id.play_imv)
         forwardBtn = findViewById(R.id.forward_imv)
         rewindBtn = findViewById(R.id.rewind_imv)
@@ -63,51 +91,28 @@ class MainActivity : AppCompatActivity(), IMain {
         playerBarGroup.visibility = View.GONE
         // Start the media player
         playPauseBtn.setOnClickListener {
-            if (isPlay) { // son en cours
-                //mediaPlayer.seekTo(0)
-                mediaPlayer.pause()
 
+            val intent = Intent(this@MainActivity, PlayerService::class.java)
+            //playerService.onCreate()
+            //playerService.onDestroy()
+            if(isPlay) {
                 isPlay = false
-
-                Toast.makeText(this, "media paused", Toast.LENGTH_SHORT).show()
+                stopService(intent)
             } else {
-
                 isPlay = true
-                mediaPlayer.start()
-                Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
-            }
-
-            mediaPlayer.setOnCompletionListener {
-                Toast.makeText(this, "end", Toast.LENGTH_SHORT).show()
+                stopService(intent)
+                startService(intent)
             }
         }
         forwardBtn.setOnClickListener {
-            positionTrack?.let {
-                if(it >= dataTrack.size) {
-                    positionTrack = 0
-                } else {
-                    positionTrack = it+1
-                }
-            }
-            updatePlayer()
+            dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onForward(it1, it2) } }
         }
 
         rewindBtn.setOnClickListener {
-            positionTrack?.let {
-                if(it > 0) {
-                    positionTrack = it-1
-                }
-            }
-            updatePlayer()
+            dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onRewind(it1, it2) } }
         }
     }
 
-    private fun updatePlayer() {
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(this, Uri.parse(dataTrack.get(positionTrack!!).preview))
-        mediaPlayer.prepare()
-        mediaPlayer.start()
-    }
 
 
 }

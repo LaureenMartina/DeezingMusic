@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/notif_rewind_imv"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_rewind_foreground"
+    />
+
+    <ImageView
+            android:id="@+id/notif_play_imv"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_play_foreground"
+    />
+    <ImageView
+            android:id="@+id/notif_forward_imv"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_forward_foreground"
+    />
+
+</LinearLayout>

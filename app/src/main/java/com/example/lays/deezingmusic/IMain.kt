@@ -4,5 +4,6 @@ import com.example.lays.deezingmusic.model.DeezerTrack
 import java.text.FieldPosition
 
 interface IMain {
-    fun startPlayer(data: List<DeezerTrack>, position: Int)
+    fun showPlayerBar()
+    fun initPlayer(data: List<DeezerTrack>, position: Int)
 }
