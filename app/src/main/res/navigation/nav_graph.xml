@@ -19,7 +19,8 @@
         </fragment>
     <fragment android:id="@+id/trackFragment" android:name="com.example.lays.deezingmusic.track.TrackFragment"
               android:label="TrackFragment">
-        <argument android:name="trackId" app:argType="integer"/>
+        <!--<argument android:name="trackId" app:argType="integer"/>-->
+        <argument android:name="albumData" app:argType="string"/>
     </fragment>
 
 </navigation>

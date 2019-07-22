@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -11,4 +11,82 @@
             tools:listitem="@layout/track_item"
     />
 
-</LinearLayout>
+</LinearLayout>-->
+
+<androidx.constraintlayout.motion.widget.MotionLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        app:showPaths="false"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/motion_scene"
+        android:id="@+id/motion_trackAlbums"
+        android:background="#d7ccc8">
+
+    <View
+            android:id="@+id/backgroundTrackAlbum"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/space"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0"
+    />
+
+    <ImageView
+            android:id="@+id/imgTrackAlbum"
+            android:layout_width="140dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:srcCompat="@drawable/ic_album_foreground"/>
+
+    <TextView
+            android:id="@+id/titleTrackAlbum"
+            android:text="Titre Album"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imgTrackAlbum"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/imgTrackAlbum"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/space"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/track_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/track_item"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgTrackAlbum">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Space
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:id="@+id/space"
+            app:layout_constraintStart_toEndOf="@+id/imgTrackAlbum"
+            app:layout_constraintTop_toBottomOf="@id/imgTrackAlbum"
+            app:layout_constraintEnd_toEndOf="@+id/imgTrackAlbum"
+            app:layout_constraintStart_toStartOf="@+id/imgTrackAlbum"/>
+</androidx.constraintlayout.motion.widget.MotionLayout>
+
+

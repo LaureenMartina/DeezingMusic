@@ -22,7 +22,7 @@ import com.example.lays.deezingmusic.model.DeezerTrack
 import com.example.lays.deezingmusic.services.PlayerService
 
 class MainActivity : AppCompatActivity(), IMain{
-    var isPlay: Boolean = false
+    private var isPlay: Boolean = false
     var isAlreadyPlayedOneTimes: Boolean = false
 
     private lateinit var playerService: PlayerService

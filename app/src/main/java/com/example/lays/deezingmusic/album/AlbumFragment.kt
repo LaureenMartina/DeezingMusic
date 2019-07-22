@@ -27,6 +27,7 @@ import android.widget.LinearLayout
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
+import com.google.gson.Gson
 
 
 class AlbumFragment : Fragment() {
@@ -35,6 +36,8 @@ class AlbumFragment : Fragment() {
     private var albumAdapter: AlbumAdapter? = null
     private lateinit var albumViewModel: AlbumViewModel
     private lateinit var cardImgAlbum: ImageView
+
+    var gson = Gson()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.album_fragment, null)
@@ -66,7 +69,10 @@ class AlbumFragment : Fragment() {
 
             override fun onClick(album: DeezerAlbum) {
 
-                val navAction = AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(album.id)
+                var albumGson: String = gson.toJson(album)
+
+                //val navAction = AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(album.id)
+                val navAction = AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(albumGson)
 
                 view?.also {
                     Navigation.findNavController(it).navigate(navAction)
