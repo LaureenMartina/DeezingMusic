@@ -1,23 +1,31 @@
 package com.example.lays.deezingmusic.track
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.MainActivity
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerTrack
 import com.example.lays.deezingmusic.IMain
-
+import com.example.lays.deezingmusic.model.DeezerAlbum
+import com.google.gson.Gson
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 
 
 class TrackFragment: Fragment() {
@@ -29,6 +37,11 @@ class TrackFragment: Fragment() {
     private lateinit var iMain: IMain
     private lateinit var motionLayout: MotionLayout
 
+    private lateinit var backgroundTrackAlbum: View
+    private lateinit var imgTrackAlbum: ImageView
+    private lateinit var titleTrackAlbum: TextView
+
+    val gson = Gson()
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -40,6 +53,7 @@ class TrackFragment: Fragment() {
         }
 
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.track_fragment, null)
     }
@@ -47,6 +61,38 @@ class TrackFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         trackRecyclerView = view.findViewById(R.id.track_recyclerview)
+
+        backgroundTrackAlbum = view.findViewById(R.id.backgroundTrackAlbum)
+        imgTrackAlbum = view.findViewById(R.id.imgTrackAlbum)
+        titleTrackAlbum = view.findViewById(R.id.titleTrackAlbum)
+
+        val albumObj = gson.fromJson(args.albumData, DeezerAlbum::class.java)
+
+        with(albumObj) {
+
+            Picasso.get()
+                .load(albumObj.coverMedium)
+                .placeholder(R.drawable.ic_album_foreground)
+                .into(imgTrackAlbum, object : com.squareup.picasso.Callback {
+                    override fun onSuccess() {
+                        val bmpDrawable = imgTrackAlbum.drawable as BitmapDrawable
+                        Palette.from(bmpDrawable.bitmap).generate {
+                            it?.let { palette ->
+                                val color = palette.getLightMutedColor(Color.argb(8, 200, 55, 155))
+                                backgroundTrackAlbum.setBackgroundColor(color)
+                                titleTrackAlbum.setTextColor(Color.BLACK)
+                            }
+
+                        }
+                    }
+
+                    override fun onError(e: Exception?) {
+                    }
+
+                })
+        }
+
+        titleTrackAlbum.text = albumObj.title
 
         initRecyclerView()
     }
@@ -60,7 +106,11 @@ class TrackFragment: Fragment() {
             updateData(it)
         })
 
-        trackViewModel.getDeezerTracks(args.trackId)
+        val albumConvertGsonToObj = gson.fromJson(args.albumData, DeezerAlbum::class.java)
+
+
+        //trackViewModel.getDeezerTracks(args.trackId)
+        trackViewModel.getDeezerTracks(albumConvertGsonToObj.id)
     }
 
     private fun initRecyclerView() {

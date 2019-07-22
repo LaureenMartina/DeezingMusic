@@ -22,7 +22,8 @@
         app:showPaths="false"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/motion_scene"
-        android:id="@+id/motion_trackAlbums">
+        android:id="@+id/motion_trackAlbums"
+        android:background="#d7ccc8">
 
     <View
             android:id="@+id/backgroundTrackAlbum"
@@ -46,11 +47,11 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             app:layout_constraintDimensionRatio="h,1:1"
-            app:srcCompat="@drawable/ic_pause_foreground"/>
+            app:srcCompat="@drawable/ic_album_foreground"/>
 
     <TextView
             android:id="@+id/titleTrackAlbum"
-            android:text="TESSSSSST"
+            android:text="Titre Album"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/imgTrackAlbum"
