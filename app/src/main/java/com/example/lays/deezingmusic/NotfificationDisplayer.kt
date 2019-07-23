@@ -79,9 +79,6 @@ object NotfificationDisplayer {
                 .setContentIntent(forwardState)
                 .setContentIntent(rewindState)
 
-            //expandedView.setTextViewText(R.id.title_album_notif, titre)
-            //expandedView.setTextViewText(R.id.artist_notif, artist)
-            //expandedView.setImageViewResource(R.id.album_art_notif, album_art)
             nc.setCustomBigContentView(expandedView)
 
             setListeners(expandedView, context)
