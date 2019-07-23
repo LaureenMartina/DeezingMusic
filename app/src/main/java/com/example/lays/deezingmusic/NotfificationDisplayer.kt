@@ -13,12 +13,13 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 
 object NotfificationDisplayer {
-        val NOTIFY_PLAY = "com.example.androiddeezer.play"
+        val NOTIFY_PLAY = "play"
+        val NOTIFY_FORWARD = "forward"
+        val NOTIFY_REWIND = "rewind"
 
-        val pPause: PendingIntent? = null
-        val pPlay: PendingIntent? = null
-        val pNext: PendingIntent? = null
-        val pPrevious: PendingIntent? = null
+        val playState: PendingIntent? = null
+        val forwardState: PendingIntent? = null
+        val rewindState: PendingIntent? = null
 
         private val NOTIFICATION_ID_CUSTOM_BIG = 9
         private var notificationManager: NotificationManager? = null
@@ -32,9 +33,9 @@ object NotfificationDisplayer {
                         Context.NOTIFICATION_SERVICE) as NotificationManager
 
                 createNotificationChannel(
-                    "com.example.androiddeezer.player",
-                    "Player",
-                    "Player Android Deezer")
+                    "player",
+                    "Deezing Music",
+                    "THIS IS AN ANDROID PLAYER FOR DEEZER")
             }
         }
 
@@ -74,7 +75,9 @@ object NotfificationDisplayer {
             nc.setContentIntent(pendingIntent)
             nc.setSmallIcon(R.drawable.ic_play_foreground)
             nc.setAutoCancel(true)
-                .setContentIntent(pPlay)
+                .setContentIntent(playState)
+                .setContentIntent(forwardState)
+                .setContentIntent(rewindState)
 
             //expandedView.setTextViewText(R.id.title_album_notif, titre)
             //expandedView.setTextViewText(R.id.artist_notif, artist)
@@ -91,7 +94,7 @@ object NotfificationDisplayer {
 
             val notificationID = 101
 
-            val channelID = "com.example.androiddeezer.player"
+            val channelID = "player"
             val expandedView = RemoteViews(context.packageName, R.layout.notification_player)
             //expandedView.setTextViewText(R.id.title_album_notif, titre)
             //expandedView.setTextViewText(R.id.artist_notif, artist)
@@ -108,7 +111,9 @@ object NotfificationDisplayer {
                 .setCustomBigContentView(expandedView)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setContentIntent(pPlay)
+                .setContentIntent(playState)
+                .setContentIntent(forwardState)
+                .setContentIntent(rewindState)
                 .build()
 
             setListeners(expandedView, context)
@@ -118,8 +123,14 @@ object NotfificationDisplayer {
 
         private fun setListeners(view: RemoteViews, context: Context) {
             val play = Intent(NOTIFY_PLAY)
-            val pPlay = PendingIntent.getBroadcast(context, 0, play, PendingIntent.FLAG_UPDATE_CURRENT)
-            view.setOnClickPendingIntent(R.id.notif_play_imv, pPlay)
+            val playState = PendingIntent.getBroadcast(context, 0, play, PendingIntent.FLAG_UPDATE_CURRENT)
+            view.setOnClickPendingIntent(R.id.notif_play_imv, playState)
+            val forward = Intent(NOTIFY_FORWARD)
+            val forwardState = PendingIntent.getBroadcast(context, 0, forward, PendingIntent.FLAG_UPDATE_CURRENT)
+            view.setOnClickPendingIntent(R.id.notif_forward_imv, forwardState)
+            val rewind = Intent(NOTIFY_REWIND)
+            val rewindState = PendingIntent.getBroadcast(context, 0, rewind, PendingIntent.FLAG_UPDATE_CURRENT)
+            view.setOnClickPendingIntent(R.id.notif_rewind_imv, rewindState)
 
         }
 

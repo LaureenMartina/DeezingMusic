@@ -69,18 +69,17 @@ class MainActivity : AppCompatActivity(), IMain{
                 getSystemService(
                     Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            NotfificationDisplayer.createNotificationChannel("com.example.androiddezer.player",
-                "Player",
-                "Player Android Deezer")
+            NotfificationDisplayer.createNotificationChannel("player",
+                "Deezing Music",
+                "THIS IS AN ANDROID PLAYER FOR DEEZER")
 
             NotfificationDisplayer.launchNotifManager(applicationContext)
 
             notificationBroadcast = NotificationBroadcast()
 
-            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.play"))
-            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.pause"))
-            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.next"))
-            registerReceiver(notificationBroadcast, IntentFilter("com.example.androiddeezer.previous"))
+            registerReceiver(notificationBroadcast, IntentFilter("play"))
+            registerReceiver(notificationBroadcast, IntentFilter("forward"))
+            registerReceiver(notificationBroadcast, IntentFilter("rewind"))
         }
 
         playerService = PlayerService()
@@ -105,14 +104,14 @@ class MainActivity : AppCompatActivity(), IMain{
             }
         }
         forwardBtn.setOnClickListener {
-            dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onForward(it1, it2) } }
+            dataTrack?.let { playerService.onForward() }
             val intent = Intent(this@MainActivity, PlayerService::class.java)
             stopService(intent)
             startService(intent)
         }
 
         rewindBtn.setOnClickListener {
-            dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onRewind(it1, it2) } }
+            dataTrack?.let { playerService.onRewind() }
             val intent = Intent(this@MainActivity, PlayerService::class.java)
             stopService(intent)
             startService(intent)
