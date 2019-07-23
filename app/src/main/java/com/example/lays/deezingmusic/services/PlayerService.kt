@@ -36,10 +36,14 @@ class PlayerService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Log.e("start command", dataTrack.toString())
         Log.e("start command pos", positionTrack.toString())
-        mediaPlayer?.setDataSource(this@PlayerService, Uri.parse(positionTrack?.let { dataTrack?.get(it)?.preview }))
-        mediaPlayer?.prepare()
-        mediaPlayer?.start()
-        isPlay = true
+        positionTrack?.let {
+            if (it >= 0) {
+                mediaPlayer?.setDataSource(this@PlayerService, Uri.parse(positionTrack?.let { dataTrack?.get(it)?.preview }))
+                mediaPlayer?.prepare()
+                mediaPlayer?.start()
+                isPlay = true
+            }
+        }
 
         return Service.START_STICKY
     }
@@ -63,23 +67,27 @@ class PlayerService : Service() {
 
     }
 
-    fun onForward(data: List<DeezerTrack>, position: Int) {
+    fun onForward() {
         positionTrack?.let {
-            if(it >= data.size) {
-                positionTrack = 0
-            } else {
-                positionTrack = it+1
-
+            dataTrack?.let { deezerList ->
+                if(it >= deezerList.size) {
+                    positionTrack = 0
+                } else {
+                    positionTrack = it+1
+                }
             }
         }
 
     }
 
-    fun onRewind(data: List<DeezerTrack>, position: Int) {
+    fun onRewind() {
         positionTrack?.let {
-            if(it > 0) {
-                positionTrack = it-1
-
+            dataTrack?.let { deezerList ->
+                if(it >= deezerList.size) {
+                    positionTrack = 0
+                } else {
+                    positionTrack = it-1
+                }
             }
         }
     }
