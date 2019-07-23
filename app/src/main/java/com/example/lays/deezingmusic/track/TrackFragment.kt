@@ -1,7 +1,6 @@
 package com.example.lays.deezingmusic.track
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -10,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.constraintlayout.widget.Group
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
@@ -21,15 +19,12 @@ import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lays.deezingmusic.IMain
-import com.example.lays.deezingmusic.MainActivity
 import com.example.lays.deezingmusic.R
 import com.example.lays.deezingmusic.model.DeezerTrack
 import com.example.lays.deezingmusic.services.PlayerService
-import kotlinx.android.synthetic.main.activity_main.*
 import com.example.lays.deezingmusic.model.DeezerAlbum
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 
 
 class TrackFragment: Fragment() {
@@ -40,14 +35,12 @@ class TrackFragment: Fragment() {
     private val args by navArgs<TrackFragmentArgs>()
     private lateinit var playerService: PlayerService
     private lateinit var iMain: IMain
-    private lateinit var motionLayout: MotionLayout
 
     private lateinit var backgroundTrackAlbum: View
     private lateinit var imgTrackAlbum: ImageView
     private lateinit var titleTrackAlbum: TextView
 
     var isAlreadyPlayedOneTimes: Boolean = false
-    private var pause:Boolean = false
 
     val gson = Gson()
 

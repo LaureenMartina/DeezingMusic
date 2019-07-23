@@ -1,17 +1,11 @@
 package com.example.lays.deezingmusic.services
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.constraintlayout.widget.Group
 import com.example.lays.deezingmusic.model.DeezerTrack
 
 
@@ -21,13 +15,9 @@ private var positionTrack: Int? = null
 
 class PlayerService : Service() {
     private var mediaPlayer: MediaPlayer? = null
-    private lateinit var mHandler: Handler
-    private lateinit var mRunnable: Runnable
-
 
 
     var isPlay: Boolean = false
-    var isAlreadyPlayedOneTimes: Boolean = false
 
     override fun onCreate() {
         mediaPlayer = MediaPlayer()
