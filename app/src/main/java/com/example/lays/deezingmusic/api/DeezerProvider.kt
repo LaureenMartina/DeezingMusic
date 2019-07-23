@@ -53,6 +53,7 @@ object DeezerProvider {
 
             override fun onResponse(call: Call<EAlbumResponse>, response: Response<EAlbumResponse>) {
                 response.body()?.also {
+
                     listener.onSuccess(EAlbumResponseMapper().map(it))
                 }
             }
@@ -77,7 +78,7 @@ object DeezerProvider {
     }
 
     interface Listener<T> {
-        fun onSuccess(data: T)
+        fun onSuccess(data: T?)
         fun onError(t: Throwable)
     }
 

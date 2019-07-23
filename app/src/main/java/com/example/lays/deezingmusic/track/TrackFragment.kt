@@ -133,7 +133,7 @@ class TrackFragment: Fragment() {
                         isAlreadyPlayedOneTimes = true
                         iMain.showPlayerBar()
                     }
-                    if(it.size != 0) {
+                    if(!it.isNullOrEmpty()) {
                         iMain.initPlayer(it, it.indexOf(music))
                         playerService.initPlayer(it, it.indexOf(music))
                     }
@@ -147,7 +147,9 @@ class TrackFragment: Fragment() {
         trackRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    fun updateData(data: List<DeezerTrack>) {
-        trackAdapter?.setData(data)
+    fun updateData(data: List<DeezerTrack>?) {
+        data?.let {
+            trackAdapter?.setData(data)
+        }
     }
 }
