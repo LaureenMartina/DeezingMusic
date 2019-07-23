@@ -106,10 +106,16 @@ class MainActivity : AppCompatActivity(), IMain{
         }
         forwardBtn.setOnClickListener {
             dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onForward(it1, it2) } }
+            val intent = Intent(this@MainActivity, PlayerService::class.java)
+            stopService(intent)
+            startService(intent)
         }
 
         rewindBtn.setOnClickListener {
             dataTrack?.let { it1 -> positionTrack?.let { it2 -> playerService.onRewind(it1, it2) } }
+            val intent = Intent(this@MainActivity, PlayerService::class.java)
+            stopService(intent)
+            startService(intent)
         }
     }
 

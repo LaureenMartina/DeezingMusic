@@ -1,6 +1,7 @@
 package com.example.lays.deezingmusic.services
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -29,7 +30,6 @@ class PlayerService : Service() {
     var isAlreadyPlayedOneTimes: Boolean = false
 
     override fun onCreate() {
-
         mediaPlayer = MediaPlayer()
     }
 
@@ -63,56 +63,25 @@ class PlayerService : Service() {
 
     }
 
-    fun onPlayPause() {
-
-        if (isPlay) { // playing the song
-            //mediaPlayer.seekTo(0)
-            mediaPlayer?.pause()
-
-            isPlay = false
-
-            Toast.makeText(this, "media paused", Toast.LENGTH_SHORT).show()
-        } else {
-
-            isPlay = true
-            mediaPlayer?.start()
-            Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     fun onForward(data: List<DeezerTrack>, position: Int) {
-        Log.e("Data in forward", data.toString())
-        Log.e("Position in forward", position.toString())
-        Log.e("data size in forward", data.size.toString())
+        positionTrack?.let {
+            if(it >= data.size) {
+                positionTrack = 0
+            } else {
+                positionTrack = it+1
 
-        if(position >= data.size) {
-            //mediaPlayer?.reset()
-            mediaPlayer?.setDataSource(this, Uri.parse(data.get(0).preview))
-            mediaPlayer?.prepare()
-            mediaPlayer?.start()
-        } else {
-            //mediaPlayer?.reset()
-            mediaPlayer?.setDataSource(this, Uri.parse(data.get(position+1).preview))
-            mediaPlayer?.prepare()
-            mediaPlayer?.start()
+            }
         }
 
     }
 
     fun onRewind(data: List<DeezerTrack>, position: Int) {
-
-        //mediaPlayer = MediaPlayer()
-        dataTrack = data
-        positionTrack = position
         positionTrack?.let {
             if(it > 0) {
                 positionTrack = it-1
+
             }
         }
-        mediaPlayer?.reset()
-        mediaPlayer?.setDataSource(this, Uri.parse(positionTrack?.let { dataTrack?.get(it)?.preview }))
-        mediaPlayer?.prepare()
-        mediaPlayer?.start()
     }
 
 }
